@@ -20,8 +20,8 @@ class Sprite {
                 y: this.position.y
             },
             offset,
-            width: 100 ,
-            height: 50,
+            width: 100,
+            height: 50
         }
         this.color = color
         this.isAttacking
