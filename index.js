@@ -122,12 +122,22 @@ function rectangularCollision({rectangle1, rectangle2}){
         rectangle1.attackBox.position.y <= rectangle2.position.y + op.height
     )
 }
-let timer = 10
+let timer = 5
 function decreaseTimer(){
-    setTimeout(decreaseTimer, 1000)
     if(timer > 0) {
+        setTimeout(decreaseTimer, 1000)
         timer --
         document.querySelector('#timer').innerHTML = timer
+    }
+
+    if(timer === 0){
+        document.querySelector('#displayText').style.display = 'flex'
+
+        if(player.health === op.health){
+            document.querySelector('#displayText').innerHTML = 'Tie' 
+        }else if (player.health > op.health){
+            document.querySelector('#displayText').innerHTML = 'player 1 Wins'
+        }
     }
 
 }
