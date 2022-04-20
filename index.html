@@ -1,15 +1,32 @@
+<head>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+    </style>
+</head>
 <body>
-    <div>
-        <div>
-            <!-- player health -->
-            <div style="background-color: yellow; height: 30px; width: 100px;"></div>
-            <div></div>
-            <!-- timer -->
-            <div></div>
-            <!-- op health -->
-            <div></div>
+        <!-- red container div -->
+        <div style="position: relative; display: inline-block ">
+            <!-- smaller red container div -->
+            <div style="position: absolute; display: flex; width: 100%; align-items:center; padding: 20px;">
+                <!-- player health -->
+                <div style="position: relative; height: 30px; width: 100%; display: flex; justify-content: flex-end;">
+                    <div  style="background-color: green; height: 30px; width:100%;"></div>
+                    <div id="playerHealth" style="position: absolute; background: yellow; top: 0; right: 0; bottom: 0; width: 100%;"></div>
+                    </div>
+                <!-- timer -->
+                <div style="background-color: white; width: 100px; height: 100px; flex-shrink: 0;"></div>
+                
+                <!-- op health -->
+                <div style="position: relative; height: 30px; width: 100%; ">
+                    <div  style="background-color: green; height: 30px;"></div>
+                    <div id="opHealth" style="position: absolute; background: yellow; top: 0; right: 0; bottom: 0; left: 0;"></div>
+                    </div>
+                    <div></div>
+                </div>
+                <canvas></canvas>
+            </div>
         </div>
-        <canvas></canvas>
-    </div>
     <script src ="index.js"></script>
-</body>
+</body> 

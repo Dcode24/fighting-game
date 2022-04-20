@@ -25,6 +25,7 @@ class Sprite {
         }
         this.color = color
         this.isAttacking
+        this.health = 100
     }
 
     draw(){
@@ -153,9 +154,10 @@ function animate(){
         rectangle2: op
     }) && 
     player.isAttacking)
-    {
+    { 
         player .isAttacking = false
-        console.log('go');
+        op.health -= 20
+        document.querySelector('#opHealth').style.width = op.health + '%'
 
     }
 
@@ -166,7 +168,8 @@ function animate(){
     op.isAttacking)
     {
         op .isAttacking = false
-        console.log('op attack sucessful');
+        player.health -= 20
+        document.querySelector('#playerHealth').style.width = player.health + '%'
 
     }
 }
