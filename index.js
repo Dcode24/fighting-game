@@ -8,6 +8,22 @@ c.fillRect(0, 0, canvas.width, canvas.height)
 const gravity = 0.7
 
 class Sprite {
+    constructor({position}) {
+        this.position = position
+        this.width = 50
+        this.height = 150
+
+    }
+
+    draw(){}
+
+    update(){
+        this.draw()
+    }
+    
+}
+
+class Fighter {
     constructor({position, velocity, color = 'blue', offset}) {
         this.position = position
         this.velocity = velocity
