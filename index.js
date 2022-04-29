@@ -14,6 +14,8 @@ const background = new Sprite({
     },
     imageSrc: './img/oak_woods_v1.0/background/background_layer_3.png'
 })
+
+
 // Creating Player from Sprite Class
 const player = new Fighter({
     position: {
