@@ -12,7 +12,7 @@ const background = new Sprite({
         x: 0,
         y: 0
     },
-    imageSrc: './img/oak_woods_v1.0/background/background_layer_3.png'
+    imageSrc: './img/background.png'
 })
 
 
