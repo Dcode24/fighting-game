@@ -69,6 +69,14 @@ const player = new Fighter({
             framesMax: 6
         }
 
+    },
+    attackBox: {
+        offset: {
+            x: 100,
+            y: 50
+        },
+        width: 160,
+        height: 50
     }
 })
 
@@ -116,6 +124,14 @@ const op = new Fighter({
             framesMax: 4
         }
 
+    },
+    attackBox: {
+        offset: {
+            x: -170,
+            y: 50
+        },
+        width: 170,
+        height: 50
     }
 })
 
@@ -205,11 +221,12 @@ function animate(){
 
         
     // detect for collision
-    if( rectangularCollision({
+    if ( 
+        rectangularCollision({
         rectangle1: player,
         rectangle2: op
     }) && 
-    player.isAttacking)
+    player.isAttacking && player.framesCurrent === 4)
     { 
         player .isAttacking = false
         op.health -= 20
@@ -217,16 +234,26 @@ function animate(){
 
     }
 
+    // if player misses
+    if(player.isAttacking && player.framesCurrent === 4){
+        player.isAttacking = false
+    }
+
     if( rectangularCollision({
         rectangle1: op,
         rectangle2: player
     }) && 
-    op.isAttacking)
+    op.isAttacking && op.framesCurrent === 2)
     {
         op .isAttacking = false
         player.health -= 20
         document.querySelector('#playerHealth').style.width = player.health + '%'
 
+    }
+
+    // if player misses
+    if(op.isAttacking && op.framesCurrent === 2){
+        op.isAttacking = false
     }
 
     //end game based on health
