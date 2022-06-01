@@ -86,6 +86,36 @@ const op = new Fighter({
     offset: {
         x: -50,
         y: 0
+    },
+    imageSrc: './img/kenji/Idle.png',
+    framesMax: 4,
+    scale: 2.5,
+    offset: {
+        x: 215,
+        y: 167
+    },
+    sprites: {
+        idle: {
+            imageSrc: './img/kenji/Idle.png',
+            framesMax: 4 
+        },
+        run: {
+            imageSrc: './img/kenji/Run.png',
+            framesMax: 8
+        },
+        jump: {
+            imageSrc: './img/kenji/Jump.png',
+            framesMax: 2
+        },
+        fall: {
+            imageSrc: './img/kenji/Fall.png',
+            framesMax: 2
+        },
+        attack1: {
+            imageSrc: './img/kenji/Attack1.png',
+            framesMax: 4
+        }
+
     }
 })
 
@@ -117,7 +147,7 @@ function animate(){
     background.update()
     shop.update()
     player.update()
-    // op.update()
+    op.update()
 
     player.velocity.x = 0
     op.velocity.x = 0
@@ -146,11 +176,33 @@ function animate(){
     
 
     //Op movement
-    if (keys.ArrowLeft .pressed && op.lastKey === 'ArrowLeft') {
+    if (keys.ArrowLeft.pressed && op.lastKey ==='ArrowLeft') {
         op.velocity.x = -5
-    } else if (keys.ArrowRight.pressed && op.lastKey === 'ArrowRight') {
+        op.switchSprite('run')
+    } else if (keys.ArrowRight.pressed && op.lastKey === 'ArrowRight'){
         op.velocity.x = 5
+        op.switchSprite('run')
+    } else{
+        op.switchSprite('idle')
     }
+
+    if(op.velocity.y < 0) {
+        op.switchSprite('jump')
+
+    }else if (op.velocity.y > 0){
+        op.switchSprite('fall')
+
+    }
+
+    // jumping 
+    if(op.velocity.y < 0) {
+        op.switchSprite('jump')
+    
+    }else if (op.velocity.y > 0){
+        op.switchSprite('fall')
+    
+    }
+
         
     // detect for collision
     if( rectangularCollision({
@@ -219,7 +271,7 @@ window.addEventListener('keydown', (event) =>{
             op.velocity.y = -20
             break
         case 'ArrowDown':
-            op.isAttacking = true
+            op.attack()
             break
     }
 
