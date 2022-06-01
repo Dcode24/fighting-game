@@ -63,7 +63,12 @@ const player = new Fighter({
         fall: {
             imageSrc: './img/samuraiMack/Fall.png',
             framesMax: 2
+        },
+        attack1: {
+            imageSrc: './img/samuraiMack/Attack1.png',
+            framesMax: 6
         }
+
     }
 })
 
@@ -137,6 +142,7 @@ function animate(){
         player.switchSprite('fall')
 
     }
+    
     
 
     //Op movement
