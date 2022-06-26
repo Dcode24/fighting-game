@@ -67,6 +67,14 @@ const player = new Fighter({
         attack1: {
             imageSrc: './img/samuraiMack/Attack1.png',
             framesMax: 6
+        },
+        takeHit: {
+            imageSrc: './img/samuraiMack/Take Hit - white silhouette.png',
+            framesMax: 4
+        },
+        death: {
+            imageSrc: './img/samuraiMack/Death.png',
+            framesMax: 6
         }
 
     },
@@ -122,6 +130,14 @@ const op = new Fighter({
         attack1: {
             imageSrc: './img/kenji/Attack1.png',
             framesMax: 4
+        },
+        takeHit: {
+            imageSrc: './img/kenji/Take hit.png',
+            framesMax: 3
+        },
+        death: {
+            imageSrc: './img/kenji/Death.png',
+            framesMax: 7
         }
 
     },
@@ -162,6 +178,8 @@ function animate(){
     c.fillRect(0, 0, canvas.width, canvas.height)
     background.update()
     shop.update()
+    c.fillStyle = 'rgba(255, 255, 255, 0.15)'
+    c.fillRect(0, 0, canvas.width, canvas.height)
     player.update()
     op.update()
 
@@ -220,17 +238,21 @@ function animate(){
     }
 
         
-    // detect for collision
+    // detect for collision & op gets hit
     if ( 
         rectangularCollision({
         rectangle1: player,
         rectangle2: op
     }) && 
-    player.isAttacking && player.framesCurrent === 4)
+    player.isAttacking && 
+    player.framesCurrent === 4)
     { 
-        player .isAttacking = false
-        op.health -= 20
-        document.querySelector('#opHealth').style.width = op.health + '%'
+        op.takeHit()
+        player.isAttacking = false
+
+        gsap.to('#opHealth', {
+            width: op.health + '%'
+        })
 
     }
 
@@ -239,15 +261,18 @@ function animate(){
         player.isAttacking = false
     }
 
+    // this is where our player gets hit
     if( rectangularCollision({
         rectangle1: op,
         rectangle2: player
     }) && 
     op.isAttacking && op.framesCurrent === 2)
     {
-        op .isAttacking = false
-        player.health -= 20
-        document.querySelector('#playerHealth').style.width = player.health + '%'
+        player.takeHit()
+        op.isAttacking = false
+        gsap.to('#playerHealth', {
+            width: player.health + '%'
+        })
 
     }
 
@@ -269,6 +294,9 @@ function animate(){
 animate()
 
 window.addEventListener('keydown', (event) =>{
+    if (!player.dead){
+
+    
     switch (event.key){
         case 'd':
             keys.d.pressed = true
@@ -285,7 +313,13 @@ window.addEventListener('keydown', (event) =>{
         case ' ':
             player.attack()
             break
+    
+        } 
+    }
+    
+    if (!op.dead){
 
+    switch(event.key) {
         case 'ArrowRight':
             keys.ArrowRight.pressed = true
             op.lastKey = 'ArrowRight'
@@ -301,6 +335,7 @@ window.addEventListener('keydown', (event) =>{
             op.attack()
             break
     }
+}
 
 })  
 
